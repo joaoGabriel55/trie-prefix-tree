@@ -1,24 +1,30 @@
-# README
+# Trie (prefix tree) in Ruby
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple trie implementation in Ruby
 
-Things you may want to cover:
+How to run benchmarks:
+```bash
+bundle install
+rails c
 
-* Ruby version
+def generate_random_words(count = 1000)
+    vowels = %w[a e i o u]
+    consonants = %w[b c d f g h j k l m n p q r s t v w x y z]
+    words = Set.new # Use Set to ensure uniqueness
 
-* System dependencies
+    while words.size < count
+        word = ""
+        3.times do # Generate 3-syllable-like words
+        word += consonants.sample + vowels.sample
+        end
+        words.add(word.downcase)
+    end
 
-* Configuration
+    words.to_a
+end
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+w = generate_random_words(1000).freeze
+sample_text = (w[0..10] + ["hello", "world"] * 50).shuffle.join(" ")
+s = FlagWordsService.new(text: sample_text)
+s.benchmark_flag_words_methods # Run the benchmark. Defaults to 10_000 iterations
+```
