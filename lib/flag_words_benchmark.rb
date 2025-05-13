@@ -25,7 +25,7 @@ class FlagWordsBenchmark
     trie_times = []
     array_times = []
 
-    puts "Running benchmark with #{runs} iterations..."
+    puts "Running benchmark with #{words_number} words and #{forbidden_words_number} forbidden words for #{runs} iterations..."
 
     # Benchmark flag_words (with Trie)
     trie_total = Benchmark.measure do

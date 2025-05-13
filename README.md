@@ -18,5 +18,5 @@ FlagWordsBenchmark.benchmark_flag_words_methods
 
 **Example usage with custom values:**
 ```rb
-FlagWordsBenchmark.benchmark_flag_words_methods(runs: 500, words_number: 600, forbidden_words_number: 10_000)
+FlagWordsBenchmark.benchmark_flag_words_methods(runs: 500, words_number: 280, forbidden_words_number: 1_000)
 ```
