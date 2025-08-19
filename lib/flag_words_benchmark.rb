@@ -23,6 +23,7 @@ class FlagWordsBenchmark
 
     # Arrays to store execution times
     trie_times = []
+    radix_times = []
     array_times = []
 
     puts "Running benchmark with #{words_number} words and #{forbidden_words_number} forbidden words for #{runs} iterations..."
@@ -47,9 +48,20 @@ class FlagWordsBenchmark
       end
     end
 
+    # Bechmark flag_words_with_radix
+    radix_total = Benchmark.measure do
+      runs.times do
+        start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        service.flag_words_with_radix
+        end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        radix_times << (end_time - start_time)
+      end
+    end
+
     # Calculate averages
     trie_avg = trie_times.sum / runs
     array_avg = array_times.sum / runs
+    radix_avg = radix_times.sum / runs
 
     # Output results
     puts "\nResults:"
@@ -59,5 +71,8 @@ class FlagWordsBenchmark
     puts "flag_words_without_trie (Array):"
     puts "  Total time: #{array_total.real.round(6)} seconds"
     puts "  Average time per run: #{array_avg.round(9)} seconds"
+    puts "flag_words_with_radix:"
+    puts "  Total time: #{radix_total.real.round(6)} seconds"
+    puts "  Average time per run: #{radix_avg.round(9)} seconds"
   end
 end
